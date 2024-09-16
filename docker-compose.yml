@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: car-rental-app
+    ports:
+      - "9090:9090"  
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:mem:twrental
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_H2_CONSOLE_ENABLED: "true"
+      SPRING_H2_CONSOLE_PATH: /h2-console
+      SPRINGDOC_SWAGGER_UI_PATH: /api/v1/swagger.html
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
