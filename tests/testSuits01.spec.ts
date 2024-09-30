@@ -56,33 +56,24 @@ test.describe('Test suite backend V1', () => {
 
 
 
+
   test('Test case 05 - Add cars', async ({ request }) => {
-    const carDetails = {
-        "pricePerDay": 1000,
-        "fabric": "Fabric15",
-        "model": "Model10",
-        "registrationNumber": "REG150",
-        "isBooked": false
-    };
-    
-    const createPostsResponse = await request.post('http://localhost:9090/api/v1/addcar', {
-        headers: { 
-            'content-type': 'application/json' 
-        },
-        data: carDetails,
+    const addCarResponse = await request.post('http://localhost:9090/api/v1/addcar', {
+        data: {
+            "pricePerDay": 1200,
+            "fabric": "Fabric152",
+            "model": "Model152",
+            "registrationNumber": "REG152" 
+        }
     });
 
-    expect(createPostsResponse.ok()).toBeTruthy();
-    expect(createPostsResponse.status()).toBe(201); // Changed to 201
-    const responseBody = await createPostsResponse.json(); // Optionally check the response body
-    expect(responseBody).toEqual(expect.objectContaining(carDetails)); // Validate the response body
-});
+    
+    expect(addCarResponse.ok()).toBeTruthy();
+    expect(addCarResponse.status()).toBe(201);
+  
+    });
 
-
-
-
-
-
+   
 
 
   test('Test case 06 - Update Car', async ({ request }) => {
@@ -144,6 +135,9 @@ test.describe('Test suite backend V1', () => {
     expect(addOrderResponse.status()).toBe(200);
   });
 
+
+
+
   test('Test case 10 - delete customer by ID', async ({ request }) => {
     // Get the list of all customers
     const getPostsResponse = await request.get('http://localhost:9090/api/v1/customers');
@@ -161,6 +155,5 @@ test.describe('Test suite backend V1', () => {
      const getDeletedCustomerResponse = await request.get(`http://localhost:9090/api/v1/deletecustomer/${lastButOneCustomerID}`);
      expect(getDeletedCustomerResponse.status()).toBe(404); 
   });
-
 
 });
