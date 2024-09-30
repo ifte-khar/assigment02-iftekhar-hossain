@@ -63,7 +63,7 @@ test('Test case 05 - Add cars', async ({ request }) => {
           "pricePerDay": 1000,
           "fabric": "Fabric15",
           "model": "Model10",
-          "registrationNumber": "REG155" 
+          "registrationNumber": "REG160" 
       }
   });
 
@@ -140,7 +140,7 @@ test('Test case 05 - Add cars', async ({ request }) => {
 
 
   test('Test case 10 - delete customer by ID', async ({ request }) => {
-    // Get the list of all customers
+    // Get list of all customers
     const getPostsResponse = await request.get('http://localhost:9090/api/v1/customers');
     expect(getPostsResponse.ok()).toBeTruthy();
   
@@ -156,5 +156,18 @@ test('Test case 05 - Add cars', async ({ request }) => {
      const getDeletedCustomerResponse = await request.get(`http://localhost:9090/api/v1/deletecustomer/${lastButOneCustomerID}`);
      expect(getDeletedCustomerResponse.status()).toBe(404); 
   });
+
+});
+
+
+test('Test case 11 - delete a car by ID', async ({ request }) => {
+  // Get all cars
+  const getPostsResponse = await request.get('http://localhost:9090/api/v1/allcars');
+  expect(getPostsResponse.ok()).toBeTruthy();
+
+   const allCustomers = await getPostsResponse.json();
+
+   const lastButOneCustomerID = allCustomers[allCustomers.length - 2].id;
+
 
 });
