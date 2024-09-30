@@ -168,6 +168,10 @@ test('Test case 11 - delete a car by ID', async ({ request }) => {
    const allCustomers = await getPostsResponse.json();
 
    const lastButOneCustomerID = allCustomers[allCustomers.length - 2].id;
-
+   const deleteCustomerResponse = await request.delete(`http://localhost:9090/api/v1/deletecar/${lastButOneCustomerID}`);
+   expect(deleteCustomerResponse.status()).toBe(404);
+ 
+   const getDeletedCarResponse = await request.get(`http://localhost:9090/api/v1/getcar/${lastButOneCustomerID}`);
+   expect(getDeletedCarResponse.status()).toBe(404);
 
 });
