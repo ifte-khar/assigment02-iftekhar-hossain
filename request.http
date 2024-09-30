@@ -59,9 +59,9 @@ Content-Type: application/json
 {
      
     "pricePerDay": 1000,
-    "fabric": "Farbric15",
-    "model": "Model10",
-    "registrationNumber": "REG150",
+    "fabric": "Farbric111",
+    "model": "Model111",
+    "registrationNumber": "REG111",
      "isBooked": true
        
 }

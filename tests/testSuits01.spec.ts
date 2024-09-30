@@ -52,26 +52,27 @@ test.describe('Test suite backend V1', () => {
     const getPostsResponse = await request.get('http://localhost:9090/api/v1/allcars');
     expect(getPostsResponse.ok()).toBeTruthy(); 
     expect(getPostsResponse.status()).toBe(200);
+});
+
+
+
+
+test('Test case 05 - Add cars', async ({ request }) => {
+  const addCarResponse = await request.post('http://localhost:9090/api/v1/addcar', {
+      data: {
+          "pricePerDay": 1000,
+          "fabric": "Fabric15",
+          "model": "Model10",
+          "registrationNumber": "REG155" 
+      }
   });
 
+  // Validate the response
+  expect(addCarResponse.ok()).toBeTruthy(); 
+  expect(addCarResponse.status()).toBe(201); 
+});
 
 
-
-  test('Test case 05 - Add cars', async ({ request }) => {
-    const addCarResponse = await request.post('http://localhost:9090/api/v1/addcar', {
-        data: {
-            "pricePerDay": 1200,
-            "fabric": "Fabric152",
-            "model": "Model152",
-            "registrationNumber": "REG152" 
-        }
-    });
-
-    
-    expect(addCarResponse.ok()).toBeTruthy();
-    expect(addCarResponse.status()).toBe(201);
-  
-    });
 
    
 
