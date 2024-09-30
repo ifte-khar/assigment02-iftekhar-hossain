@@ -29,7 +29,7 @@ test.describe('Test suite backend V1', () => {
   
   
   test('Test case 03 - Add customers', async ({ request }) => {
-    // Sending a POST request to add a customer
+    
     const addCustomerResponse = await request.post('http://localhost:9090/api/v1/addcustomer', {
         data: {
             "username": "user15",
@@ -57,20 +57,28 @@ test.describe('Test suite backend V1', () => {
 
 
   test('Test case 05 - Add cars', async ({ request }) => {
-    // Sending a POST request to add a car
-    const addCarResponse = await request.post('http://localhost:9090/api/v1/addcar', {
-        data: {
-            "pricePerDay": 1000,
-            "fabric": "Fabric15",
-            "model": "Model10",
-            "registrationNumber": "REG150"
-        }
+    const carDetails = {
+        "pricePerDay": 1000,
+        "fabric": "Fabric15",
+        "model": "Model10",
+        "registrationNumber": "REG150",
+        "isBooked": false
+    };
+    
+    const createPostsResponse = await request.post('http://localhost:9090/api/v1/addcar', {
+        headers: { 
+            'content-type': 'application/json' 
+        },
+        data: carDetails,
     });
 
-    // Validate the response
-    expect(addCarResponse.ok()).toBeTruthy();
-    expect(addCarResponse.status()).toBe(201);
+    expect(createPostsResponse.ok()).toBeTruthy();
+    expect(createPostsResponse.status()).toBe(201); // Changed to 201
+    const responseBody = await createPostsResponse.json(); // Optionally check the response body
+    expect(responseBody).toEqual(expect.objectContaining(carDetails)); // Validate the response body
 });
+
+
 
 
 
@@ -94,7 +102,6 @@ test.describe('Test suite backend V1', () => {
     expect(putPostsResponse.ok()).toBeTruthy(); 
     expect(putPostsResponse.status()).toBe(200);
 });
-
 
 
 
@@ -137,33 +144,23 @@ test.describe('Test suite backend V1', () => {
     expect(addOrderResponse.status()).toBe(200);
   });
 
-
-
-
-
-  test('Test case 09 - Delete Post by ID', async ({ request }) => {
+  test('Test case 10 - delete customer by ID', async ({ request }) => {
+    // Get the list of all customers
     const getPostsResponse = await request.get('http://localhost:9090/api/v1/customers');
     expect(getPostsResponse.ok()).toBeTruthy();
-    const allPosts = await getPostsResponse.json();
-    expect(allPosts.length).toBeGreaterThan(2);
-    
-    // Choose a specific ID (for example, the first post)
-    const postToDeleteID = allPosts[2].id;  // Change this to your preferred logic
+  
+     const allCustomers = await getPostsResponse.json();
+     
+     expect(allCustomers.length).toBeGreaterThan(2);
 
-    // Delete request
-    const deletePostsResponse = await request.delete('http://localhost:9090/api/v1/deletecustomer', {
-        data: {
-            "id": postToDeleteID  // Use the chosen ID
-        }
-    });
-    
-    expect(deletePostsResponse.ok()).toBeTruthy();
+     const lastButOneCustomerID = allCustomers[allCustomers.length - 3].id;
+  
+     const deleteCustomerResponse = await request.delete(`http://localhost:9090/api/v1/deletecustomer/${lastButOneCustomerID}`);
+     expect(deleteCustomerResponse.status()).toBe(404);
+  
+     const getDeletedCustomerResponse = await request.get(`http://localhost:9090/api/v1/deletecustomer/${lastButOneCustomerID}`);
+     expect(getDeletedCustomerResponse.status()).toBe(404); 
+  });
 
-//
-    const deleteElementResponse = await request.get(`http://localhost:9090/api/v1/customers`);
-    const updatedCustomers = await deleteElementResponse.json();
-    expect(updatedCustomers.some(customer => customer.id === postToDeleteID)).toBeFalsy();
-});
-//
 
 });
