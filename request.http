@@ -2,6 +2,41 @@
 GET http://localhost:9090/api/v1/customers
 
 
+
+###
+PUT http://localhost:9090/api/v1/updatecustomer
+Content-Type: application/json
+
+{
+  "id": 1,
+  "username": "user1",
+  "name": "Name1",
+  "address": "Fake Address",
+  "email": "fakeemail1@example.com",
+  "phoneNumber": "0700000001" 
+}
+
+
+###
+POST http://localhost:9090/api/v1/addcustomer
+Content-Type: application/json
+
+{
+    "username": "user15",
+    "name": "Name15",
+    "address": "Fakegatan 15",
+    "email": "fakeepost15@example.com",
+    "phoneNumber": "0715151515"
+}
+
+
+
+###
+GET http://localhost:9090/api/v1/allcars 
+
+
+
+
 ###
 POST http://localhost:9090/api/v1/ordercar
 Content-Type: application/json
@@ -13,7 +48,68 @@ Content-Type: application/json
   "numberOfDays": 0
 }
 
-###
-DELETE http://localhost:9090/api/v1/deletecustomer/4
 
-Content-Type: application/json/
+
+
+###
+
+POST http://localhost:9090/api/v1/addcar
+Content-Type: application/json
+
+{
+     
+    "pricePerDay": 1000,
+    "fabric": "Farbric15",
+    "model": "Model10",
+    "registrationNumber": "REG150"
+       
+}
+
+
+
+
+
+
+###  
+PUT http://localhost:9090/api/v1/updatecar
+Content-Type: application/json
+
+{
+    "id": 1,
+    "pricePerDay": 500.0,
+    "fabric": "Fabric1",
+    "model": "Model1",
+    "registrationNumber": "REG128",
+    "isBooked": true
+  }
+
+
+
+###
+GET http://localhost:9090/api/v1/orders
+
+
+
+
+###
+POST http://localhost:9090/api/v1/myorders
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+
+
+
+
+###
+DELETE http://localhost:9090/api/v1/deletecustomer
+Content-Type:application/json
+  
+  {
+    "id": 7
+  }
+
+
+
