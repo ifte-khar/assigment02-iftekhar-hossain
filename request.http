@@ -2,3 +2,18 @@
 GET http://localhost:9090/api/v1/customers
 
 
+###
+POST http://localhost:9090/api/v1/ordercar
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "carId": 3,
+  "date": "2024-09-30T09:25:48.231Z",
+  "numberOfDays": 0
+}
+
+###
+DELETE http://localhost:9090/api/v1/deletecustomer/4
+
+Content-Type: application/json/
